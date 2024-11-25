@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Formatter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .json-container {
+      display: flex;
+      gap: 20px;
+    }
+    .json-textarea {
+      width: 100%;
+      height: 300px;
+    }
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="text-center">JSON Formatter</h1>
+    <div class="json-container">
+      <textarea id="leftTextArea" class="form-control json-textarea" placeholder="Enter JSON here"></textarea>
+      <div class="btn-container">
+        
+        <button id="formatButton" class="btn btn-primary">Format</button>
+        <button id="minifyButton" class="btn btn-secondary">Minify</button>
+        <button id="validateButton" class="btn btn-info">Validate</button>
+      </div>
+      <textarea id="rightTextArea" class="form-control json-textarea" placeholder="Result"></textarea>
+    </div>
+  </div>
+
+  <script>
+    // Validate JSON
+    document.getElementById('validateButton').addEventListener('click', () => {
+      const input = document.getElementById('leftTextArea').value;
+      try {
+        JSON.parse(input);
+        alert('JSON is valid!');
+      } catch (error) {
+        alert('Invalid JSON! Please check your input.');
+      }
+    });
+
+    // Format JSON
+    document.getElementById('formatButton').addEventListener('click', () => {
+      const input = document.getElementById('leftTextArea').value;
+      try {
+        const parsed = JSON.parse(input);
+        const formatted = JSON.stringify(parsed, null, 2);
+        document.getElementById('rightTextArea').value = formatted;
+      } catch (error) {
+        alert('Invalid JSON! Please check your input.');
+      }
+    });
+
+    // Minify JSON
+    document.getElementById('minifyButton').addEventListener('click', () => {
+      const input = document.getElementById('leftTextArea').value;
+      try {
+        const parsed = JSON.parse(input);
+        const minified = JSON.stringify(parsed);
+        document.getElementById('rightTextArea').value = minified;
+      } catch (error) {
+        alert('Invalid JSON! Please check your input.');
+      }
+    });
+  </script>
+</body>
+</html>
